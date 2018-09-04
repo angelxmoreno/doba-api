@@ -5,7 +5,6 @@ namespace Axm\DobaApi\Tests\Unit;
 use Axm\DobaApi\Auth;
 use Axm\DobaApi\Tests\TestHelper;
 
-
 describe(Auth::class, function () {
     given('properties', function () {
         return [
@@ -24,7 +23,6 @@ describe(Auth::class, function () {
         foreach ($this->properties as $prop => $val) {
             $getter = TestHelper::getterMethod($prop);
             $setter = TestHelper::setterMethod($prop);
-
 
             it('sets ' . $prop, function () use ($setter, $prop, $val) {
                 $this->AuthClass->{$setter}($val . $val);

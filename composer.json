@@ -36,28 +36,29 @@
   "scripts": {
     "tests": "kahlan --config=.kahlan.php",
     "tests:coverage": "kahlan --config=.kahlan.php --coverage=4",
-    "tests:report": "kahlan --cc=true --reporter=bar --coverage=4 --clover=clover.xml",
-    "tests:clover": "kahlan --no-header --cc=true --reporter=bar --clover=clover.xml",
+    "tests:clover": "kahlan --config=.kahlan.php --no-header --reporter=bar --clover=coverage.xml",
 
-    "cs:check": "phpcs --standard=ruleset.xml",
-    "cs:fix": "phpcbf -v --standard=ruleset.xml",
-    "md:check": "phpmd . text phpmd.xml --exclude /vendor/,/tmp/,/logs/ --suffixes php --colors"
+    "cs:check": "phpcs --standard=.phpcs.xml",
+    "cs:fix": "phpcbf -v --standard=.phpcs.xml",
+    "md:check": "phpmd . text .phpmd.xml --exclude /vendor/,/tmp/,/logs/ --suffixes php --colors"
   },
   "require": {
-    "php": "^7.2",
+    "php": "^5.6 | ^7.2",
+    "ext-json": "^1.2",
     "cakephp/collection": "^3.6",
     "cakephp/utility": "^3.6",
     "guzzlehttp/guzzle": "~6.0",
     "monolog/monolog": "^1.23",
     "rakshazi/get-set-trait": "^1.0",
-    "symfony/cache": "^4.1"
+    "symfony/cache": "^3.4 | ^4.1"
   },
   "require-dev": {
     "angelxmoreno/get-set-annotations": "^1.1",
+    "cakephp/cakephp-codesniffer": "^3.0",
     "codacy/coverage": "^1.4",
     "codeclimate/php-test-reporter": "^0.4.4",
     "kahlan/kahlan": "^4.1",
-    "php-di/php-di": "^6.0",
+    "php-di/php-di": "^5.0 | ^6.0",
     "phpmd/phpmd": "^2.6",
     "squizlabs/php_codesniffer": "^3.3"
   }
