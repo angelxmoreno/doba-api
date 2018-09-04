@@ -2,15 +2,30 @@
 
 namespace Axm\DobaApi\Api;
 
+use Axm\DobaApi\Entity\Supplier;
+use Axm\DobaApi\Factories\SupplierFactory;
+
 /**
  * Class ProductsApi
  * @package Axm\DobaApi\Api
  */
 class ProductsApi extends ApiBase
 {
-    public function getSuppliers(array $options = [])
+    /**
+     * @param string[] $supplier_ids
+     * @return Supplier[]
+     * @throws \Axm\DobaApi\DobaResponseException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function getSuppliers(array $supplier_ids = []) : array
     {
-        throw new \BadMethodCallException('getSuppliers is not yet implemented');
+        $options = count($supplier_ids)
+            ? ['supplier_ids.supplier_id' => $supplier_ids]
+            : [];
+        $response = $this->getRequest()->call('getSuppliers', $options);
+
+        return SupplierFactory::fromArrayOfSupplierData($response);
     }
 
     public function searchCatalog(array $options = [])
