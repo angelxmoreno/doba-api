@@ -134,13 +134,32 @@ class Request
         $xml = Xml::fromArray(['dce' => []]);
         $request = $xml->addChild('request');
 
+        $this->buildRequestParams($request, $action);
+        $this->buildRequestExtras($request, $extras);
+
+        return $xml->asXML();
+    }
+
+    /**
+     * @param \SimpleXMLElement $request
+     * @param string $action
+     */
+    protected function buildRequestParams(\SimpleXMLElement $request, string $action) : void
+    {
         $authentication = $request->addChild('authentication');
         $authentication->addChild('username', $this->getAuth()->getUsername());
         $authentication->addChild('password', $this->getAuth()->getPassword());
 
         $request->addChild('retailer_id', $this->getAuth()->getRetailerId());
         $request->addChild('action', $action);
+    }
 
+    /**
+     * @param \SimpleXMLElement $request
+     * @param array $extras
+     */
+    protected function buildRequestExtras(\SimpleXMLElement $request, array $extras) : void
+    {
         foreach ($extras as $key => $val) {
             if (is_array($val)) {
                 list($outer, $inner) = explode('.', $key);
@@ -154,8 +173,6 @@ class Request
                 $request->addChild($key, $val);
             }
         }
-
-        return $xml->asXML();
     }
 
     /**
@@ -175,7 +192,7 @@ class Request
      * @return void
      * @throws DobaResponseException
      */
-    protected function checkForError(array $data):void
+    protected function checkForError(array $data) : void
     {
         $error = Hash::get($data, 'error', false);
         if ($error) {

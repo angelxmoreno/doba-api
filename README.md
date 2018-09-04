@@ -14,7 +14,9 @@ A PHP library for interacting with the Doba API
 - Make calls to the Doba API
 - PSR6 cache for faster responses
 - Objects as responses
-- Uses Guzzle to reduce complexity and increase compatibility when cURL is not available 
+- Uses Guzzle
+    - to reduce complexity
+    - to increase compatibility when cURL is not available
 
 ## Examples
 
@@ -41,9 +43,10 @@ composer require angelxmoreno/doba-api
 
 ## Setup
 
-
 ## Reporting Issues
+
 If you have a problem with this library please open an issue on [GitHub](https://github.com/angelxmoreno/cakephp-linked-entities/issues).
 
 ## License
+
 This code is offered under an [MIT license](https://opensource.org/licenses/mit-license.php).
