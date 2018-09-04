@@ -1,1 +1,23 @@
 version: "2"
+plugins:
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: ".phpcs.xml"
+  phpmd:
+    enabled: true
+    config:
+      rulesets: ".phpmd.xml"
+  sonar-php:
+    enabled: true
+    config:
+      tests_patterns:
+      - tests/**
+  fixme:
+    enabled: true
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+  shellcheck:
+    enabled: true
