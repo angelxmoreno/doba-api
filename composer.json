@@ -30,12 +30,12 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Axm\\DobaApi\\Tests\\": "src/"
+      "Axm\\DobaApi\\Tests\\": "tests/"
     }
   },
   "scripts": {
-    "tests:check": "kahlan --cc=true --reporter=verbose",
-    "tests:coverage": "kahlan --cc=true --reporter=verbose --coverage=4",
+    "tests": "kahlan --config=.kahlan.php",
+    "tests:coverage": "kahlan --config=.kahlan.php --coverage=4",
     "tests:report": "kahlan --cc=true --reporter=bar --coverage=4 --clover=clover.xml",
     "tests:clover": "kahlan --no-header --cc=true --reporter=bar --clover=clover.xml",
 
@@ -57,6 +57,7 @@
     "codacy/coverage": "^1.4",
     "codeclimate/php-test-reporter": "^0.4.4",
     "kahlan/kahlan": "^4.1",
+    "php-di/php-di": "^6.0",
     "phpmd/phpmd": "^2.6",
     "squizlabs/php_codesniffer": "^3.3"
   }
