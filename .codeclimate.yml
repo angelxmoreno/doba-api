@@ -11,6 +11,7 @@ plugins:
   sonar-php:
     enabled: true
     config:
+      minimum_severity: critical
       tests_patterns:
       - tests/**
   fixme:
