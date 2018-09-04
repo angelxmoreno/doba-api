@@ -57,6 +57,7 @@ class OrdersApi
     public function getOrderDetail($options = []) : array
     {
         $response = $this->getRequest()->call('getOrderDetail', $options);
+
         return OrderFactory::fromArrayOfOrderData($response);
     }
 
@@ -74,6 +75,4 @@ class OrdersApi
     {
         throw new \BadMethodCallException('fundOrder is not yet implemented');
     }
-
-
 }

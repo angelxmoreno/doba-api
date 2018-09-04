@@ -111,7 +111,6 @@ class Request
 
         $xml = $this->buildRequestBody($action, $extras);
 
-
         $response = $this->getHttpClient()->request('POST', $url, ['body' => $xml]);
 
         $body = $response->getBody()->getContents();

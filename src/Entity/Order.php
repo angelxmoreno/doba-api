@@ -48,52 +48,52 @@ class Order extends EntityBase
     use GetSetTrait;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $retailer_id;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $order_id;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $order_group_id;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $po_number;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $status;
 
     /**
-     * @var array 
+     * @var array
      */
     protected $statuses;
 
     /**
-     * @var float 
+     * @var float
      */
     protected $subtotal;
 
     /**
-     * @var float 
+     * @var float
      */
     protected $shipping_fees;
 
     /**
-     * @var float 
+     * @var float
      */
     protected $drop_ship_fees;
 
     /**
-     * @var float 
+     * @var float
      */
     protected $order_total;
 
@@ -107,22 +107,22 @@ class Order extends EntityBase
     protected $billing_address;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $payment_methods;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $can_pay;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $is_paid;
 
     /**
-     * @var array 
+     * @var array
      */
     protected $suppliers;
 

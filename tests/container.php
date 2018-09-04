@@ -34,4 +34,5 @@ try {
     echo $e->getMessage() . PHP_EOL;
     exit(0);
 }
+
 return $container;

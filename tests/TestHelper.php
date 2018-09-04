@@ -29,6 +29,7 @@ class TestHelper
     public static function instanceFromArray(string $class_name, array $args)
     {
         $reflection = new \ReflectionClass($class_name);
+
         return $reflection->newInstanceArgs($args);
     }
 
@@ -45,6 +46,7 @@ class TestHelper
 
         $reflectionProperty = $reflectionClass->getProperty($property);
         $reflectionProperty->setAccessible(true);
+
         return $reflectionProperty->getValue($obj);
     }
 }

@@ -8,7 +8,6 @@ use Axm\DobaApi\Tests\TestHelper;
 use GuzzleHttp\Client as GuzzleClient;
 use Kahlan\Plugin\Double;
 
-
 describe(Request::class, function () {
     given('properties', function () {
         return [
@@ -44,7 +43,6 @@ describe(Request::class, function () {
                 ->toReceive('buildRequestBody')
                 ->once()
                 ->with($action);
-
 
             $this->Request->call($action);
         });

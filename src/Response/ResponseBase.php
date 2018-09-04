@@ -13,5 +13,4 @@ abstract class ResponseBase implements \JsonSerializable
 {
     use GetSetTrait;
     use JsonSerializeTrait;
-
 }
