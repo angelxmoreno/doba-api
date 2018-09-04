@@ -42,6 +42,9 @@ use Rakshazi\GetSetTrait;
  * @method void setSuppliers(array $suppliers)
  * @method \DateTimeInterface getDatePlaced()
  * @method void setDatePlaced(\DateTimeInterface $date_placed)
+ *
+ * @todo Break this DTO into smaller chunks to reduce the properties by at most 15
+ * @SuppressWarnings("TooManyFields")
  */
 class Order extends EntityBase
 {

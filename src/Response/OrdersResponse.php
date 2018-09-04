@@ -16,6 +16,8 @@ use Axm\DobaApi\Entity\Order;
  * @method void setOverallTotalSpent(float $overall_total_spent)
  * @method Order[] getOrders()
  * @method void setOrders(array $orders)
+ *
+ * @SuppressWarnings("LongVariable")
  */
 class OrdersResponse extends ResponseBase
 {
@@ -26,6 +28,9 @@ class OrdersResponse extends ResponseBase
 
     /**
      * @var int
+     * @todo inquire what is the difference between result_total and overall_number_of_orders
+     * @todo shorten this name and use the factory to map the property from the api to the new variable name
+     *
      */
     protected $overall_number_of_orders;
 

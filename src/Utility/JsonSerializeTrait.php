@@ -7,14 +7,24 @@ use JsonSerializable;
 /**
  * Trait JsonSerializeTrait
  * @package Axm\DobaApi\Utility
+ *
+ * @todo replace this code if a library solution
+ * @SuppressWarnings("CyclomaticComplexity")
+ * @SuppressWarnings("ElseExpression")
  */
 trait JsonSerializeTrait
 {
+    /**
+     * @return array
+     */
     public function jsonSerialize() : array
     {
         return $this->toArray();
     }
 
+    /**
+     * @return array
+     */
     public function toArray() : array
     {
         $props = get_object_vars($this);
