@@ -22,7 +22,6 @@ $builder->addDefinitions([
     Request::class => create()->constructor(
         get(Auth::class),
         get('HttpClient'),
-        true,
         new \Symfony\Component\Cache\Simple\FilesystemCache()
     ),
     OrdersApi::class => create()->constructor(get(Request::class))

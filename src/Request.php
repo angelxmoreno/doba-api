@@ -58,18 +58,15 @@ class Request
      * Request constructor.
      * @param Auth $auth
      * @param GuzzleClient $httpClient
-     * @param bool $dev_mode
      * @param CacheInterface $cacheEngine
      */
     public function __construct(
         Auth $auth,
         GuzzleClient $httpClient,
-        bool $dev_mode = true,
         CacheInterface $cacheEngine = null
     ) {
         $this->setAuth($auth);
         $this->setHttpClient($httpClient);
-        $this->setDev($dev_mode);
         $this->setCacheEngine($cacheEngine);
         $this->setCache(!!$this->getCacheEngine());
     }
@@ -146,7 +143,9 @@ class Request
                 foreach ($val as $child) {
                     $container->addChild($inner, $child);
                 }
-            } else {
+            }
+
+            if (!is_array($val)) {
                 $request->addChild($key, $val);
             }
         }

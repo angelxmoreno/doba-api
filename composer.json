@@ -40,7 +40,7 @@
 
     "cs:check": "phpcs --standard=.phpcs.xml",
     "cs:fix": "phpcbf -v --standard=.phpcs.xml",
-    "md:check": "phpmd . text phpmd.xml --exclude /vendor/,/tmp/,/logs/ --suffixes php --colors"
+    "md:check": "phpmd . text .phpmd.xml --exclude /vendor/,/tmp/,/logs/ --suffixes php --colors"
   },
   "require": {
     "cakephp/collection": "^3.6",

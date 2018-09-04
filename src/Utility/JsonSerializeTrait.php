@@ -23,7 +23,9 @@ trait JsonSerializeTrait
         foreach ($props as $key => $val) {
             if (is_object($val) && $val instanceof JsonSerializable) {
                 $data[$key] = $val->jsonSerialize();
-            } elseif (is_array($val)) {
+            }
+
+            if (is_array($val)) {
                 $collection = [];
                 foreach ($val as $valKey => $valVal) {
                     if (is_object($valVal) && $valVal instanceof JsonSerializable) {
@@ -33,7 +35,9 @@ trait JsonSerializeTrait
                     }
                 }
                 $data[$key] = $collection;
-            } else {
+            }
+
+            if (!is_object($val) && !is_array($val)) {
                 $data[$key] = $val;
             }
         }
