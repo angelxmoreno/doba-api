@@ -5,33 +5,14 @@ namespace Axm\DobaApi\Api;
 use Axm\DobaApi\Entity\Order;
 use Axm\DobaApi\Factories\OrderFactory;
 use Axm\DobaApi\Factories\OrdersResponseFactory;
-use Axm\DobaApi\Request;
 use Axm\DobaApi\Response\OrdersResponse;
-use Rakshazi\GetSetTrait;
 
 /**
  * Class OrdersApi
  * @package Axm\DobaApi\Api
- *
- * @method Request getRequest()
- * @method void setRequest(Request $request)
  */
-class OrdersApi
+class OrdersApi extends ApiBase
 {
-    use GetSetTrait;
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * Order constructor.
-     * @param Request $request
-     */
-    public function __construct(Request $request)
-    {
-        $this->setRequest($request);
-    }
 
     /**
      * @param array $options
