@@ -43,8 +43,6 @@
     "md:check": "phpmd . text phpmd.xml --exclude /vendor/,/tmp/,/logs/ --suffixes php --colors"
   },
   "require": {
-    "php": "^7.2",
-    "ext-json": "^1.6",
     "cakephp/collection": "^3.6",
     "cakephp/utility": "^3.6",
     "guzzlehttp/guzzle": "~6.0",
