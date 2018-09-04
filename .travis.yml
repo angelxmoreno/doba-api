@@ -1,0 +1,50 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - hhvm-nightly
+  - nightly
+
+before_install:
+  - echo "Running BeforeInstall"
+
+before_script:
+  - echo "Running BeforeScript"
+  - composer self-update
+  - composer install --no-interaction
+
+script:
+  - echo "RunningScript"
+  - composer tests:clover
+
+after_success:
+  - echo "Running AfterSuccess"
+
+after_script:
+  - echo "Running AfterScript"
+  - echo "Sending coverage report to CodeClimate"
+  - ./vendor/bin/test-reporter --coverage-report=coverage.xml
+  - echo "Sending coverage report to Codacy"
+  - ./vendor/bin/codacycoverage clover coverage.xml
+
+matrix:
+  fast_finish: true
+  allow_failures:
+      - php: 5.6
+      - php: 7.0
+      - php: 7.1
+      - php: hhvm-nightly
+      - php: nightly
+
+# Customize when the notification emails are sent.
+notifications:
+    on_success: never
+    on_failure: never
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache

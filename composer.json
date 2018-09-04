@@ -36,8 +36,7 @@
   "scripts": {
     "tests": "kahlan --config=.kahlan.php",
     "tests:coverage": "kahlan --config=.kahlan.php --coverage=4",
-    "tests:report": "kahlan --cc=true --reporter=bar --coverage=4 --clover=clover.xml",
-    "tests:clover": "kahlan --no-header --cc=true --reporter=bar --clover=clover.xml",
+    "tests:clover": "kahlan --config=.kahlan.php --no-header --reporter=bar --clover=coverage.xml",
 
     "cs:check": "phpcs --standard=ruleset.xml",
     "cs:fix": "phpcbf -v --standard=ruleset.xml",

@@ -10,8 +10,7 @@ include __DIR__ .'/vendor/autoload.php';
 
 $spec_dir = implode(DS, [
     __DIR__,
-    'tests',
-    'Unit',
+    'tests'
 ]);
 
 /** @var \Kahlan\Cli\CommandLine $commandLine */
