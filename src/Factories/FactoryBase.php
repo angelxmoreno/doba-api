@@ -11,6 +11,11 @@ use Cake\Utility\Hash;
  */
 abstract class FactoryBase
 {
+    /**
+     * @param string $class_name
+     * @param array $order_data
+     * @return object
+     */
     public static function fromArrayData(string $class_name, array $order_data)
     {
         $obj = new $class_name;

@@ -12,7 +12,11 @@ use Cake\Utility\Hash;
  */
 class OrderFactory extends FactoryBase
 {
-    public static function fromArrayOfOrderData(array $data)
+    /**
+     * @param array $data
+     * @return Order[]
+     */
+    public static function fromArrayOfOrderData(array $data):array
     {
         $orders_data = Hash::get($data, 'orders.order', []);
 
@@ -24,7 +28,11 @@ class OrderFactory extends FactoryBase
         return $orders;
     }
 
-    public static function fromOrderData(array $order_data)
+    /**
+     * @param array $order_data
+     * @return Order
+     */
+    public static function fromOrderData(array $order_data) : Order
     {
         /** @var Order $order */
         $order = self::fromArrayData(Order::class, $order_data);

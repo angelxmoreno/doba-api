@@ -4,9 +4,9 @@ use Axm\DobaApi\Api\OrdersApi;
 use Axm\DobaApi\Auth;
 use Axm\DobaApi\Request;
 use DI\ContainerBuilder;
-use GuzzleHttp\Client;
 use function DI\create;
 use function DI\get;
+use GuzzleHttp\Client;
 
 $builder = new ContainerBuilder();
 $builder->addDefinitions([

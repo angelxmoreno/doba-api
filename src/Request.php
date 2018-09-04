@@ -68,7 +68,7 @@ class Request
         $this->setAuth($auth);
         $this->setHttpClient($httpClient);
         $this->setCacheEngine($cacheEngine);
-        $this->setCache(!!$this->getCacheEngine());
+        $this->setCache((bool)$this->getCacheEngine());
     }
 
     /**
@@ -81,6 +81,7 @@ class Request
 
     /**
      * @param bool $is_dev
+     * @return void
      */
     public function setDev(bool $is_dev) : void
     {
@@ -88,10 +89,9 @@ class Request
     }
 
     /**
-     *
      * @param string $action
      * @param array $extras
-     * @return array
+     * @return mixed
      * @throws DobaResponseException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -124,6 +124,11 @@ class Request
         return $response_data;
     }
 
+    /**
+     * @param string $action
+     * @param array $extras
+     * @return string
+     */
     public function buildRequestBody(string $action, array $extras = []) : string
     {
         $xml = Xml::fromArray(['dce' => []]);
@@ -153,6 +158,9 @@ class Request
         return $xml->asXML();
     }
 
+    /**
+     * @return string
+     */
     protected function buildRequestUrl() : string
     {
         $prefix = ($this->isDev())
@@ -164,9 +172,10 @@ class Request
 
     /**
      * @param array $data
+     * @return void
      * @throws DobaResponseException
      */
-    protected function checkForError(array $data)
+    protected function checkForError(array $data):void
     {
         $error = Hash::get($data, 'error', false);
         if ($error) {

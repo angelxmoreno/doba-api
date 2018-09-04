@@ -11,7 +11,11 @@ use Cake\Utility\Hash;
  */
 class OrdersResponseFactory extends FactoryBase
 {
-    public static function fromOrdersResponseData(array $data)
+    /**
+     * @param array $data
+     * @return OrdersResponse
+     */
+    public static function fromOrdersResponseData(array $data) : OrdersResponse
     {
         $ordersResponse = new OrdersResponse();
         $ordersResponse->setResultTotal((int)Hash::get($data, 'result_total', 0));
