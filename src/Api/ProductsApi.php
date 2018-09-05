@@ -28,9 +28,23 @@ class ProductsApi extends ApiBase
         return SupplierFactory::fromArrayOfSupplierData($response);
     }
 
-    public function searchCatalog(array $options = [])
+    /**
+     * @param string $search_term
+     * @param int $start
+     * @param int $limit
+     * @param array $options
+     * @return mixed
+     * @throws \Axm\DobaApi\DobaResponseException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function searchCatalog(string $search_term = '', int $start = 1, int $limit = 500, array $options = [])
     {
-        throw new \BadMethodCallException('searchCatalog is not yet implemented');
+        $options['search_term'] = $search_term;
+        $options['display_start'] = $start;
+        $options['display_count'] = $limit;
+
+        return $response = $this->getRequest()->call('searchCatalog', $options);
     }
 
     public function getProductDetail(array $options = [])

@@ -4,9 +4,10 @@ namespace Axm\DobaApi\Tests\Integration;
 
 use Axm\DobaApi\Api\ProductsApi;
 use Axm\DobaApi\Entity\Supplier;
+use Axm\DobaApi\Factories\SavedSearchesFactory;
 
 describe(ProductsApi::class, function () {
-    context('->getSuppliers()', function () {
+    xcontext('->getSuppliers()', function () {
         context('when supplier ids are not provided', function () {
             it('get suppliers', function () {
                 /** @var ProductsApi $productsApi */
@@ -20,7 +21,6 @@ describe(ProductsApi::class, function () {
         });
         context('when supplier ids are provided', function () {
             it('get suppliers specified', function () {
-
                 /** @var ProductsApi $productsApi */
                 $productsApi = $this->container->get(ProductsApi::class);
                 $suppliers = $productsApi->getSuppliers();
@@ -41,7 +41,34 @@ describe(ProductsApi::class, function () {
             });
         });
     });
-    xcontext('->searchCatalog()', function () {
+    context('->searchCatalog()', function () {
+        /** @var ProductsApi $productsApi */
+        $productsApi = $this->container->get(ProductsApi::class);
+        $response = $productsApi->searchCatalog('ipod');
+
+        $saved_searches = $response['saved_searches']['saved_search'];
+        $products = $response['products']['product'];
+        $facets = $response['facets']['facet'];
+
+        $categories = collection($facets)->filter(function ($facet) {
+            return $facet['display_name'] === 'Categories';
+        })->extract('values.value')->first();
+
+        $suppliers = collection($facets)->filter(function ($facet) {
+            return $facet['display_name'] === 'Suppliers';
+        })->extract('values.value')->first();
+
+        $brands = collection($facets)->filter(function ($facet) {
+            return $facet['display_name'] === 'Brands';
+        })->extract('values.value')->first();
+
+        unset($response['outcome']);
+        unset($response['saved_searches']);
+        unset($response['facets']);
+        unset($response['products']);
+//        print_r(SavedSearchesFactory::fromArrayOfSavedSearchData($saved_searches));
+        print_r($products[0]);
+//        print_r(SavedSearchesFactory::fromArrayOfSavedSearchData($products));
     });
     xcontext('->getProductDetail()', function () {
     });
