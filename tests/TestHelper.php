@@ -3,6 +3,7 @@
 namespace Axm\DobaApi\Tests;
 
 use Cake\Utility\Inflector;
+use ReflectionClass;
 
 /**
  * Class TestHelper
@@ -28,7 +29,7 @@ class TestHelper
      */
     public static function instanceFromArray(string $class_name, array $args)
     {
-        $reflection = new \ReflectionClass($class_name);
+        $reflection = new ReflectionClass($class_name);
 
         return $reflection->newInstanceArgs($args);
     }
@@ -42,7 +43,7 @@ class TestHelper
     public static function getProperty($obj, string $property)
     {
         $class_name = get_class($obj);
-        $reflectionClass = new \ReflectionClass($class_name);
+        $reflectionClass = new ReflectionClass($class_name);
 
         $reflectionProperty = $reflectionClass->getProperty($property);
         $reflectionProperty->setAccessible(true);
