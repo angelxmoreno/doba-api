@@ -3,13 +3,13 @@
 namespace Axm\DobaApi\Entity;
 
 /**
- * Class Category
+ * Class Brand
  * @package Axm\DobaApi\Entity
  */
-class Category extends EntityBase
+class Brand extends EntityBase
 {
     /**
-     * @var int
+     * @var string
      */
     protected $id;
 
@@ -31,17 +31,17 @@ class Category extends EntityBase
     protected $selected;
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId() : int
+    public function getId() : string
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
-    public function setId(int $id) : void
+    public function setId(string $id) : void
     {
         $this->id = $id;
     }

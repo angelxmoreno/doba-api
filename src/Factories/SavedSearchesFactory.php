@@ -56,7 +56,6 @@ class SavedSearchesFactory extends FactoryBase
             $saved_search_data['date_created']
         );
 
-        print_r($saved_search_data['date_created']);
         /** @var SavedSearch $saved_search */
         $saved_search = self::fromArrayData(SavedSearch::class, $saved_search_data);
 
