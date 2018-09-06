@@ -11,7 +11,7 @@ use UnexpectedValueException;
  * Class CollectionBase
  * @package Axm\DobaApi\Collections
  */
-class CollectionBase extends IteratorIterator implements CollectionInterface
+abstract class CollectionBase extends IteratorIterator implements CollectionInterface
 {
     use CollectionTrait;
 
@@ -20,7 +20,7 @@ class CollectionBase extends IteratorIterator implements CollectionInterface
     /**
      * @var string
      */
-    protected $collection_type = 'string';
+    protected $collection_type;
 
     /**
      * @var array
@@ -88,9 +88,6 @@ class CollectionBase extends IteratorIterator implements CollectionInterface
     protected function ensureType($item)
     {
         $type = $this->getCollectionType();
-        if (is_null($type)) {
-            return;
-        }
 
         $item_type = is_object($item)
             ? get_class($item)
