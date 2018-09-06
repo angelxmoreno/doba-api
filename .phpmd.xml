@@ -11,6 +11,7 @@
     <!-- Import the entire clean code rule set -->
     <rule ref="rulesets/cleancode.xml">
         <exclude name="StaticAccess"/>
+        <exclude name="ElseExpression"/>
     </rule>
     <!-- Import the entire code size rule set -->
     <rule ref="rulesets/codesize.xml"/>
