@@ -3,6 +3,7 @@
 namespace Axm\DobaApi\Tests\Unit\Collections;
 
 use Axm\DobaApi\Collections\CollectionBase;
+use Axm\DobaApi\Tests\TestHelper;
 use Kahlan\Plugin\Double;
 
 describe(CollectionBase::class, function () {
@@ -10,12 +11,10 @@ describe(CollectionBase::class, function () {
         $this->items = ['a', 'b', 'c'];
         $this->collection_class = Double::classname([
             'class' => 'StringCollection',
-            'extends' => CollectionBase::class,
-            'methods' => [
-                'getCollectionType' => 'string'
-            ]
+            'extends' => CollectionBase::class
         ]);
-        /** @var CollectionBase $collection */
+
+        allow($this->collection_class)->toReceive('getCollectionType')->andReturn('string');
         $this->StringCollection = new $this->collection_class($this->items);
     });
 
@@ -86,6 +85,25 @@ describe(CollectionBase::class, function () {
                 expect($this->StringCollection->getInnerIterator())
                     ->toContain($item);
             }
+        });
+    });
+
+    describe('->getCollectionType()', function () {
+        it('it returns the collectionType', function () {
+            $collection_class = Double::classname([
+                'class' => 'BlankCollection',
+                'extends' => CollectionBase::class
+            ]);
+
+            /** @var CollectionBase $collection */
+            $collection = new $collection_class();
+
+            expect($collection->getCollectionType())
+                ->not
+                ->toBe('boolean');
+            TestHelper::setProperty($collection, 'collection_type', 'boolean');
+            expect($collection->getCollectionType())
+                ->toBe('boolean');
         });
     });
 });
