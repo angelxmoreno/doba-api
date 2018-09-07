@@ -24,7 +24,8 @@ $builder->addDefinitions([
         get('HttpClient'),
         new \Symfony\Component\Cache\Simple\FilesystemCache()
     ),
-    OrdersApi::class => create()->constructor(get(Request::class))
+    OrdersApi::class => create()->constructor(get(Request::class)),
+    ProductsApi::class => create()->constructor(get(Request::class)),
 ]);
 
 try {

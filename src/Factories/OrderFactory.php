@@ -13,29 +13,13 @@ use Cake\Utility\Hash;
 class OrderFactory extends FactoryBase
 {
     /**
-     * @param array $data
-     * @return Order[]
-     */
-    public static function fromArrayOfOrderData(array $data):array
-    {
-        $orders_data = Hash::get($data, 'orders.order', []);
-
-        $orders = [];
-        foreach ($orders_data as $order_data) {
-            $orders[] = self::fromOrderData($order_data);
-        }
-
-        return $orders;
-    }
-
-    /**
      * @param array $order_data
      * @return Order
      */
-    public static function fromOrderData(array $order_data) : Order
+    public static function fromData(array $order_data) : Order
     {
         /** @var Order $order */
-        $order = self::fromArrayData(Order::class, $order_data);
+        $order = self::hydrate(Order::class, $order_data);
 
         $billing_address = new Address();
         $billing_address->setName(Hash::get($order_data, 'bill_name'));
@@ -58,5 +42,21 @@ class OrderFactory extends FactoryBase
         $order->setShippingAddress($shipping_address);
 
         return $order;
+    }
+
+    /**
+     * @param array $data
+     * @return Order[]
+     */
+    public static function fromArrayOfData(array $data) : array
+    {
+        $orders_data = Hash::get($data, 'orders.order', []);
+
+        $orders = [];
+        foreach ($orders_data as $order_data) {
+            $orders[] = self::fromData($order_data);
+        }
+
+        return $orders;
     }
 }

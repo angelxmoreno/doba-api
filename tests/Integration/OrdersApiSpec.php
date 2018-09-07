@@ -1,5 +1,7 @@
 <?php
 
+namespace Axm\DobaApi\Tests\Integration;
+
 use Axm\DobaApi\Api\OrdersApi;
 use Axm\DobaApi\Response\OrdersResponse;
 

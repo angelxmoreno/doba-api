@@ -2,18 +2,21 @@
 
 namespace Axm\DobaApi\Collections;
 
-use Cake\Collection\CollectionInterface;
+use ArrayAccess;
 use Cake\Collection\CollectionTrait;
-use IteratorIterator;
+use Countable;
+use Iterator;
 use UnexpectedValueException;
 
 /**
  * Class CollectionBase
  * @package Axm\DobaApi\Collections
  */
-abstract class CollectionBase extends IteratorIterator implements CollectionInterface
+abstract class CollectionBase implements Iterator, Countable, ArrayAccess
 {
     use CollectionTrait;
+    use CollectionIteratorTrait;
+    use CollectionArrayAccessTrait;
 
     const TPL_NOT_VALID = "'%s' is not a valid '%s'";
 
@@ -36,10 +39,7 @@ abstract class CollectionBase extends IteratorIterator implements CollectionInte
         $this->addMany($items);
     }
 
-    /**
-     * @return array|\Iterator
-     */
-    public function getInnerIterator() : array
+    public function optimizeUnwrap()
     {
         return $this->items;
     }
@@ -48,10 +48,10 @@ abstract class CollectionBase extends IteratorIterator implements CollectionInte
      * Adds an item to the list of items and ensures its type
      *
      * @param mixed $item
-     * @param null|string|int $key
+     * @param null|string $key
      * @return static
      */
-    public function add($item, $key = null)
+    public function add($item, string $key = null)
     {
         $this->ensureType($item);
         if ($key) {
