@@ -1,12 +1,11 @@
 <?php
 
-use Axm\DobaApi\Api\OrdersApi;
+use Axm\DobaApi\Api;
 use Axm\DobaApi\Auth;
-use Axm\DobaApi\Request;
 use DI\ContainerBuilder;
+use GuzzleHttp\Client;
 use function DI\create;
 use function DI\get;
-use GuzzleHttp\Client;
 
 $builder = new ContainerBuilder();
 $builder->addDefinitions([
@@ -18,14 +17,8 @@ $builder->addDefinitions([
         get('test_password'),
         get('test_retail_id')
     ),
-    'HttpClient' => create(Client::class),
-    Request::class => create()->constructor(
-        get(Auth::class),
-        get('HttpClient'),
-        new \Symfony\Component\Cache\Simple\FilesystemCache()
-    ),
-    OrdersApi::class => create()->constructor(get(Request::class)),
-    ProductsApi::class => create()->constructor(get(Request::class)),
+    Client::class => create()->constructor(get(Auth::class)),
+    Api::class => create()->constructor(get(Client::class))
 ]);
 
 try {
