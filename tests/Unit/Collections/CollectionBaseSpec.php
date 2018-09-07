@@ -18,9 +18,9 @@ describe(CollectionBase::class, function () {
         $this->StringCollection = new $this->collection_class($this->items);
     });
 
-    describe('->getInnerIterator()', function () {
+    describe('->optimizeUnwrap()', function () {
         it('returns the items', function () {
-            expect($this->StringCollection->getInnerIterator())->toBe($this->items);
+            expect($this->StringCollection->optimizeUnwrap())->toBe($this->items);
         });
     });
 
@@ -39,31 +39,31 @@ describe(CollectionBase::class, function () {
 
         context('When a valid item is given', function () {
             it('adds the item to the collection', function () {
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->not
                     ->toContain('bob');
 
                 $this->StringCollection->add('bob');
 
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->toContain('bob');
             });
         });
 
         context('When a key and item is given', function () {
             it('adds the item and assigns the key', function () {
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->not
                     ->toContain('bob');
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->not
                     ->toContainKey('name');
 
                 $this->StringCollection->add('bob', 'name');
 
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->toContain('bob');
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->toContainKey('name');
             });
         });
@@ -74,7 +74,7 @@ describe(CollectionBase::class, function () {
             $new_items = ['jack', 'jill'];
 
             foreach ($new_items as $item) {
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->not
                     ->toContain($item);
             }
@@ -82,7 +82,7 @@ describe(CollectionBase::class, function () {
             $this->StringCollection->addMany($new_items);
 
             foreach ($new_items as $item) {
-                expect($this->StringCollection->getInnerIterator())
+                expect($this->StringCollection->optimizeUnwrap())
                     ->toContain($item);
             }
         });

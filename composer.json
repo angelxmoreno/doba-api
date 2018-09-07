@@ -35,6 +35,7 @@
   },
   "scripts": {
     "tests": "kahlan --config=.kahlan.php",
+    "tests:integration": "kahlan --config=.kahlan.php --spec=./tests/Integration",
     "tests:coverage": "kahlan --config=.kahlan.php --coverage=4",
     "tests:clover": "kahlan --config=.kahlan.php --no-header --reporter=bar --clover=coverage.xml",
 

@@ -46,7 +46,7 @@ describe(ProductsApi::class, function () {
         });
     });
     context('->searchCatalog()', function () {
-        fit('creates a search response', function () {
+        it('creates a search response', function () {
             /** @var ProductsApi $productsApi */
             $productsApi = $this->container->get(ProductsApi::class);
             $response = $productsApi->searchCatalog('ipod', 2, 3);
