@@ -1,14 +1,10 @@
 <?php
 
-namespace Axm\DobaApi\Factories;
-
-use Axm\DobaApi\Api;
-use Axm\DobaApi\Auth;
-use Axm\DobaApi\Client;
+namespace Axm\DobaApi;
 
 /**
  * Class Factory
- * @package Axm\DobaApi\Factories
+ * @package Axm\DobaApi
  */
 class Factory
 {
