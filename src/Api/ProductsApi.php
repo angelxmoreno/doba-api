@@ -2,8 +2,9 @@
 
 namespace Axm\DobaApi\Api;
 
-use Axm\DobaApi\Entity\Supplier;
+use Axm\DobaApi\Collections\SuppliersCollection;
 use Axm\DobaApi\Factories\SupplierFactory;
+use Cake\Utility\Hash;
 
 /**
  * Class ProductsApi
@@ -13,19 +14,21 @@ class ProductsApi extends ApiBase
 {
     /**
      * @param string[] $supplier_ids
-     * @return Supplier[]
+     * @return SuppliersCollection
      * @throws \Axm\DobaApi\DobaResponseException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function getSuppliers(array $supplier_ids = []) : array
+    public function getSuppliers(array $supplier_ids = []) : SuppliersCollection
     {
         $options = count($supplier_ids)
             ? ['supplier_ids.supplier_id' => $supplier_ids]
             : [];
         $response = $this->getRequest()->call('getSuppliers', $options);
 
-        return SupplierFactory::fromArrayOfSupplierData($response);
+        $supplier_data = Hash::get($response, 'suppliers.supplier', []);
+
+        return SupplierFactory::collectionFromArrayData($supplier_data);
     }
 
     /**

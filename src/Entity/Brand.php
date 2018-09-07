@@ -5,6 +5,15 @@ namespace Axm\DobaApi\Entity;
 /**
  * Class Brand
  * @package Axm\DobaApi\Entity
+ *
+ * @method string getId()
+ * @method void setId(string $id)
+ * @method string getName()
+ * @method void setName(string $name)
+ * @method int getCount()
+ * @method void setCount(int $count)
+ * @method string getSelected()
+ * @method void setSelected(string $selected)
  */
 class Brand extends EntityBase
 {
@@ -29,70 +38,4 @@ class Brand extends EntityBase
      * @todo confirm we need this property
      */
     protected $selected;
-
-    /**
-     * @return string
-     */
-    public function getId() : string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId(string $id) : void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCount() : int
-    {
-        return $this->count;
-    }
-
-    /**
-     * @param int $count
-     */
-    public function setCount(int $count) : void
-    {
-        $this->count = $count;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSelected() : string
-    {
-        return $this->selected;
-    }
-
-    /**
-     * @param string $selected
-     */
-    public function setSelected(string $selected) : void
-    {
-        $this->selected = $selected;
-    }
-
-
 }

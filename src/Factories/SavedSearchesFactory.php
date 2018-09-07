@@ -2,6 +2,7 @@
 
 namespace Axm\DobaApi\Factories;
 
+use Axm\DobaApi\Collections\SavedSearchesCollection;
 use Axm\DobaApi\Entity\SavedSearch;
 
 /**
@@ -10,54 +11,43 @@ use Axm\DobaApi\Entity\SavedSearch;
  */
 class SavedSearchesFactory extends FactoryBase
 {
-    /**
-     * @param array $saved_searches_data
-     * @return SavedSearch[]
-     */
-    public static function fromArrayOfSavedSearchData(array $saved_searches_data) : array
-    {
-        $saved_searches = [];
-        foreach ($saved_searches_data as $saved_search_data) {
-            $saved_searches[] = self::fromSavedSearchData($saved_search_data);
-        }
-
-        return $saved_searches;
-    }
+    public const COLLECTION = SavedSearchesCollection::class;
 
     /**
-     * @param array $saved_search_data
+     * @param array $data
      * @return SavedSearch
      */
-    public static function fromSavedSearchData(array $saved_search_data) : SavedSearch
+    public static function fromData(array $data) : SavedSearch
     {
-        $saved_search_data['id'] = $saved_search_data['saved_search_id'];
-        $saved_search_data['criteria'] =
+        $data['id'] = $data['saved_search_id'];
+
+        $data['criteria'] =
             json_decode(
                 json_encode(
                     unserialize(
-                        $saved_search_data['criteria']
+                        $data['criteria']
                     )
                 ),
                 true
             );
 
-        $saved_search_data['friendly_criteria'] =
+        $data['friendly_criteria'] =
             json_decode(
                 json_encode(
                     unserialize(
-                        $saved_search_data['friendly_criteria']
+                        $data['friendly_criteria']
                     )
                 ),
                 true
             );
 
-        $saved_search_data['date_created'] = \DateTime::createFromFormat(
+        $data['date_created'] = \DateTime::createFromFormat(
             'Y-m-d H:i:s',
-            $saved_search_data['date_created']
+            $data['date_created']
         );
 
         /** @var SavedSearch $saved_search */
-        $saved_search = self::fromArrayData(SavedSearch::class, $saved_search_data);
+        $saved_search = self::hydrate(SavedSearch::class, $data);
 
         return $saved_search;
     }

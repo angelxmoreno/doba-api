@@ -25,7 +25,7 @@ class OrdersApi extends ApiBase
     {
         $response = $this->getRequest()->call('getOrders', $options);
 
-        return OrdersResponseFactory::fromOrdersResponseData($response);
+        return OrdersResponseFactory::fromData($response);
     }
 
     /**
@@ -39,7 +39,7 @@ class OrdersApi extends ApiBase
     {
         $response = $this->getRequest()->call('getOrderDetail', $options);
 
-        return OrderFactory::fromArrayOfOrderData($response);
+        return OrderFactory::fromArrayOfData($response);
     }
 
     public function orderLookup() : array

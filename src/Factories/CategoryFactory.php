@@ -2,6 +2,7 @@
 
 namespace Axm\DobaApi\Factories;
 
+use Axm\DobaApi\Collections\CategoriesCollection;
 use Axm\DobaApi\Entity\Category;
 
 /**
@@ -10,31 +11,19 @@ use Axm\DobaApi\Entity\Category;
  */
 class CategoryFactory extends FactoryBase
 {
+    public const COLLECTION = CategoriesCollection::class;
+
     /**
-     * @param array $category_data
+     * @param array $data
      * @return Category
      */
-    public static function fromCategoryData(array $category_data) : Category
+    public static function fromData(array $data) : Category
     {
-        $category_data['name'] = $category_data['displayValue'];
+        $data['name'] = $data['displayValue'];
 
         /** @var Category $category */
-        $category = self::fromArrayData(Category::class, $category_data);
+        $category = self::hydrate(Category::class, $data);
 
         return $category;
-    }
-
-    /**
-     * @param array $categories_data
-     * @return Category[]
-     */
-    public static function fromArrayOfCategoryData(array $categories_data) : array
-    {
-        $categories = [];
-        foreach ($categories_data as $category_data) {
-            $categories[] = self::fromCategoryData($category_data);
-        }
-
-        return $categories;
     }
 }

@@ -10,27 +10,24 @@ use Axm\DobaApi\Entity\SupplierInformation;
  */
 class SupplierInformationFactory extends FactoryBase
 {
-
     /**
-     * @param array $supplierInformation_data
+     * @param array $data
      * @return SupplierInformation
      */
-    public static function fromSupplierInformationData(array $supplierInformation_data) : SupplierInformation
+    public static function fromData(array $data) : SupplierInformation
     {
-
-        if ($supplierInformation_data['avg_qty_in_stock'] != (int)$supplierInformation_data['avg_qty_in_stock']) {
-            var_dump($supplierInformation_data['avg_qty_in_stock']);
+        if ($data['avg_qty_in_stock'] != (int)$data['avg_qty_in_stock']) {
+            var_dump($data['avg_qty_in_stock']);
             die;
         }
-        $supplierInformation_data['avg_qty_in_stock'] = (int)$supplierInformation_data['avg_qty_in_stock'];
-        $supplierInformation_data['date_active'] = \DateTime::createFromFormat(
+        $data['avg_qty_in_stock'] = (int)$data['avg_qty_in_stock'];
+        $data['date_active'] = \DateTime::createFromFormat(
             'Y-m-d',
-            $supplierInformation_data['date_active']
+            $data['date_active']
         );
         /** @var SupplierInformation $supplierInformation */
-        $supplierInformation = self::fromArrayData(SupplierInformation::class, $supplierInformation_data);
+        $supplierInformation = self::hydrate(SupplierInformation::class, $data);
 
-//        return new SupplierInformation();
         return $supplierInformation;
     }
 }

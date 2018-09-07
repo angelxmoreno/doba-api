@@ -2,9 +2,9 @@
 
 namespace Axm\DobaApi\Factories;
 
+use Axm\DobaApi\Collections\SuppliersCollection;
 use Axm\DobaApi\Entity\Category;
 use Axm\DobaApi\Entity\Supplier;
-use Axm\DobaApi\Entity\SupplierCategory;
 use Cake\Utility\Hash;
 
 /**
@@ -13,48 +13,35 @@ use Cake\Utility\Hash;
  */
 class SupplierFactory extends FactoryBase
 {
+    public const COLLECTION = SuppliersCollection::class;
 
     /**
-     * @param array $supplier_data
+     * @param array $data
      * @return Supplier
      */
-    public static function fromSupplierData(array $supplier_data) : Supplier
+    public static function fromData(array $data) : Supplier
     {
-        $supplier_data['name'] = array_key_exists('displayValue', $supplier_data)
-            ? $supplier_data['displayValue']
-            : $supplier_data['name'];
+        $data['name'] = array_key_exists('displayValue', $data)
+            ? $data['displayValue']
+            : $data['name'];
 
         /** @var Supplier $supplier */
-        $supplier = self::fromArrayData(Supplier::class, $supplier_data);
+        $supplier = self::hydrate(Supplier::class, $data);
 
-        if (array_key_exists('info', $supplier_data)) {
-            $info = SupplierInformationFactory::fromSupplierInformationData($supplier_data['info']);
+        if (array_key_exists('info', $data)) {
+            $info = SupplierInformationFactory::fromData($data['info']);
             $supplier->setSupplierInformation($info);
         }
 
-        $categories_data = Hash::get($supplier_data, 'categories.category', false);
+        $categories_data = Hash::get($data, 'categories.category', false);
         if ($categories_data) {
             $categories = [];
             foreach ($categories_data as $category_data) {
-                $categories[] = self::fromArrayData(Category::class, $category_data);
+                $categories[] = self::hydrate(Category::class, $category_data);
             }
             $supplier->setSupplierCategories($categories);
         }
 
         return $supplier;
-    }
-
-    /**
-     * @param array $suppliers_data
-     * @return Supplier[]
-     */
-    public static function fromArrayOfSupplierData(array $suppliers_data) : array
-    {
-        $suppliers = [];
-        foreach ($suppliers_data as $supplier_data) {
-            $suppliers[] = self::fromSupplierData($supplier_data);
-        }
-
-        return $suppliers;
     }
 }

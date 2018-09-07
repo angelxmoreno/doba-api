@@ -10,8 +10,8 @@ namespace Axm\DobaApi\Entity;
  * @method void setAllowsCustomBranding(bool $allows_custom_branding)
  * @method bool getAllowsDirectRelationships()
  * @method void setAllowsDirectRelationships(bool $allows_direct_relationships)
- * @method  getAlerts()
- * @method void setAlerts( $alerts)
+ * @method array getAlerts()
+ * @method void setAlerts(array $alerts)
  * @method int getAvgQtyInStock()
  * @method void setAvgQtyInStock(int $avg_qty_in_stock)
  * @method int getDaysToReceiveRefund()
@@ -82,6 +82,9 @@ class SupplierInformation extends EntityBase
      */
     protected $allows_direct_relationships;
 
+    /**
+     * @var array
+     */
     protected $alerts;
 
     /**

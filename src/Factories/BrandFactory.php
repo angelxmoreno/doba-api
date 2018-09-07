@@ -2,6 +2,7 @@
 
 namespace Axm\DobaApi\Factories;
 
+use Axm\DobaApi\Collections\BrandsCollection;
 use Axm\DobaApi\Entity\Brand;
 
 /**
@@ -10,31 +11,19 @@ use Axm\DobaApi\Entity\Brand;
  */
 class BrandFactory extends FactoryBase
 {
+    public const COLLECTION = BrandsCollection::class;
+
     /**
-     * @param array $brand_data
+     * @param array $data
      * @return Brand
      */
-    public static function fromBrandData(array $brand_data) : Brand
+    public static function fromData(array $data) : Brand
     {
-        $brand_data['name'] = $brand_data['displayValue'];
+        $data['name'] = $data['displayValue'];
 
         /** @var Brand $brand */
-        $brand = self::fromArrayData(Brand::class, $brand_data);
+        $brand = self::hydrate(Brand::class, $data);
 
         return $brand;
-    }
-
-    /**
-     * @param array $brands_data
-     * @return Brand[]
-     */
-    public static function fromArrayOfBrandData(array $brands_data) : array
-    {
-        $brands = [];
-        foreach ($brands_data as $brand_data) {
-            $brands[] = self::fromBrandData($brand_data);
-        }
-
-        return $brands;
     }
 }
