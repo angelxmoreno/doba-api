@@ -1,10 +1,10 @@
 <?php
 
-namespace Axm\DobaApi\Tests\Unit\Api;
+namespace Axm\DobaApi\Tests\Unit;
 
-use Axm\DobaApi\Api\OrdersApi;
+use Axm\DobaApi\Api;
 
-describe(OrdersApi::class, function () {
+describe(Api::class, function () {
     describe('->__construct()', function () {
         xit('__construct', function () {
         });
@@ -29,20 +29,28 @@ describe(OrdersApi::class, function () {
         xit('fundOrder', function () {
         });
     });
-    describe('->__call()', function () {
-        xit('__call', function () {
+    describe('->getSuppliers()', function () {
+        xit('getSuppliers', function () {
         });
     });
-    describe('->getData()', function () {
-        xit('getData', function () {
+    describe('->searchCatalog()', function () {
+        xit('searchCatalog', function () {
         });
     });
-    describe('->setData()', function () {
-        xit('setData', function () {
+    describe('->getProductDetail()', function () {
+        xit('getProductDetail', function () {
         });
     });
-    describe('->setDataProperty()', function () {
-        xit('setDataProperty', function () {
+    describe('->getProductInventory()', function () {
+        xit('getProductInventory', function () {
+        });
+    });
+    describe('->getListsSummary()', function () {
+        xit('getListsSummary', function () {
+        });
+    });
+    describe('->editList()', function () {
+        xit('editList', function () {
         });
     });
 });
