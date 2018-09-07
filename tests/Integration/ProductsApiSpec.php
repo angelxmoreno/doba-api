@@ -4,8 +4,8 @@ namespace Axm\DobaApi\Tests\Integration;
 
 use Axm\DobaApi\Api\ProductsApi;
 use Axm\DobaApi\Collections\SuppliersCollection;
+use Axm\DobaApi\Entity\Product;
 use Axm\DobaApi\Entity\Supplier;
-use Axm\DobaApi\Factories\SearchResponseFactory;
 use Axm\DobaApi\Response\SearchResponse;
 
 describe(ProductsApi::class, function () {
@@ -49,15 +49,27 @@ describe(ProductsApi::class, function () {
         it('creates a search response', function () {
             /** @var ProductsApi $productsApi */
             $productsApi = $this->container->get(ProductsApi::class);
-            $response = $productsApi->searchCatalog('ipod', 2, 3);
-            $search_response = SearchResponseFactory::fromData($response);
+            $search_response = $productsApi->searchCatalog('ipod', 2, 3);
 
             expect($search_response)->toBeAnInstanceOf(SearchResponse::class);
             expect($search_response->getDisplayStart())->toBe(2);
             expect($search_response->getProducts())->toHaveLength(3);
         });
     });
-    xcontext('->getProductDetail()', function () {
+    fcontext('->getProductDetail()', function () {
+        it('gets product details', function () {
+            /** @var ProductsApi $productsApi */
+            $productsApi = $this->container->get(ProductsApi::class);
+
+            $search_response = $productsApi->searchCatalog('ipod', 2, 3);
+
+            $ids = $search_response->getProducts()->map(function(Product $product){
+                return $product->getId();
+            })->toArray();
+
+            $response = $productsApi->getProductDetail(['products.product' => $ids]);
+            var_export($response);
+        });
     });
     xcontext('->getProductInventory()', function () {
     });

@@ -3,7 +3,10 @@
 namespace Axm\DobaApi\Api;
 
 use Axm\DobaApi\Collections\SuppliersCollection;
+use Axm\DobaApi\Factories\ProductFactory;
+use Axm\DobaApi\Factories\SearchResponseFactory;
 use Axm\DobaApi\Factories\SupplierFactory;
+use Axm\DobaApi\Response\SearchResponse;
 use Cake\Utility\Hash;
 
 /**
@@ -41,18 +44,26 @@ class ProductsApi extends ApiBase
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function searchCatalog(string $search_term = '', int $start = 1, int $limit = 500, array $options = [])
-    {
+    public function searchCatalog(
+        string $search_term = '',
+        int $start = 1,
+        int $limit = 500,
+        array $options = []
+    ) : SearchResponse {
         $options['search_term'] = $search_term;
         $options['display_start'] = $start;
         $options['display_count'] = $limit;
 
-        return $response = $this->getRequest()->call('searchCatalog', $options);
+        $response = $this->getRequest()->call('searchCatalog', $options);
+
+        return SearchResponseFactory::fromData($response);
     }
 
     public function getProductDetail(array $options = [])
     {
-        throw new \BadMethodCallException('getProductDetail is not yet implemented');
+        $response = $this->getRequest()->call('getProductDetail', $options);
+
+        return ProductFactory::collectionFromArrayData($response['products']['product']);
     }
 
     public function getProductInventory(array $options = [])
