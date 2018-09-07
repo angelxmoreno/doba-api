@@ -52,8 +52,8 @@ describe(Client::class, function () {
             $action = 'getSuppliers';
             $options = ['supplier_ids' => [2646, 1535, 2693]];
 
-            $this->client->setAuth($this->auth);
-            $response = $this->client->call($action, $options);
+            $client = new Client($this->auth);
+            $response = $client->call($action, $options);
 
             expect($response)->toHaveLength(count($options['supplier_ids']));
         });
