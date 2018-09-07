@@ -84,6 +84,4 @@ class Auth
     {
         $this->retailer_id = $retailer_id;
     }
-
-
 }
