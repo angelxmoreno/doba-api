@@ -11,12 +11,15 @@ use stdClass;
  */
 class Client
 {
-    const WSDL_URL = "https://sandbox.doba.com/soap/20110301/wsdl/ApiRetailerSearch.wsdl";
+    /**
+     * @var string
+     */
+    protected $wsdl_url;
 
-    const SOAP_OPTIONS = [
-        'trace' => 1,
-        'features' => SOAP_SINGLE_ELEMENT_ARRAYS
-    ];
+    /**
+     * @var array
+     */
+    protected $soap_options = [];
 
     /**
      * @var Auth
@@ -50,10 +53,42 @@ class Client
     public function getSoapClient() : SoapClient
     {
         if (!$this->soapClient) {
-            $this->soapClient = new SoapClient(static::WSDL_URL, static::SOAP_OPTIONS);
+            $this->soapClient = $this->buildSoapClient();
         }
 
         return $this->soapClient;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWsdlUrl() : string
+    {
+        return $this->wsdl_url;
+    }
+
+    /**
+     * @param string $wsdl_url
+     */
+    public function setWsdlUrl(string $wsdl_url) : void
+    {
+        $this->wsdl_url = $wsdl_url;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSoapOptions() : array
+    {
+        return $this->soap_options;
+    }
+
+    /**
+     * @param array $soap_options
+     */
+    public function setSoapOptions(array $soap_options) : void
+    {
+        $this->soap_options = $soap_options;
     }
 
     public function call(string $action, array $options = [])
@@ -73,5 +108,10 @@ class Client
         $response = call_user_func([$this->getSoapClient(), $action], $objRequest);
 
         return json_decode(json_encode($response), true);
+    }
+
+    protected function buildSoapClient() : SoapClient
+    {
+        return new SoapClient($this->getWsdlUrl(), $this->getSoapOptions());
     }
 }

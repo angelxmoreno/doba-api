@@ -67,4 +67,22 @@ class TestHelper
         $r_property->setAccessible(true);
         $r_property->setValue($obj, $value);
     }
+
+    /**
+     * @param string $class_name
+     * @param null|int $filter
+     * @return array
+     * @throws ReflectionException
+     */
+    public static function getMethodsArray(string $class_name, $filter = null) : array
+    {
+        $r_class = new ReflectionClass($class_name);
+        $methods = [];
+        $r_methods = $r_class->getMethods($filter);
+        foreach ($r_methods as $r_method) {
+            $methods[] = $r_method->getName();
+        }
+
+        return $methods;
+    }
 }

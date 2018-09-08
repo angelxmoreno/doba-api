@@ -32,17 +32,17 @@ class Api
         throw new \BadMethodCallException('getOrderDetail is not yet implemented');
     }
 
-    public function orderLookup() : array
+    public function orderLookup(array $options = []) : array
     {
         throw new \BadMethodCallException('orderLookup is not yet implemented');
     }
 
-    public function createOrder() : array
+    public function createOrder(array $options = []) : array
     {
         throw new \BadMethodCallException('createOrder is not yet implemented');
     }
 
-    public function fundOrder() : array
+    public function fundOrder(array $options = []) : array
     {
         throw new \BadMethodCallException('fundOrder is not yet implemented');
     }

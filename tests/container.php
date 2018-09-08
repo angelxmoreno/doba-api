@@ -3,7 +3,7 @@
 use Axm\DobaApi\Api;
 use Axm\DobaApi\Auth;
 use DI\ContainerBuilder;
-use GuzzleHttp\Client;
+use Axm\DobaApi\Client;
 use function DI\create;
 use function DI\get;
 

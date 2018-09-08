@@ -3,10 +3,26 @@
 namespace Axm\DobaApi\Tests\Unit;
 
 use Axm\DobaApi\Api;
+use Axm\DobaApi\Client;
+use Axm\DobaApi\Factory;
+use Axm\DobaApi\Tests\TestHelper;
+use Kahlan\Plugin\Double;
 
 describe(Api::class, function () {
-    describe('->__construct()', function () {
-        xit('__construct', function () {
+    describe('methods not implemented', function () {
+        it('they throw a', function () {
+            $api = new Api(Factory::buildClient('','',''));
+            $methods = TestHelper::getMethodsArray(Api::class, \ReflectionMethod::IS_PUBLIC);
+
+            foreach ($methods as $method) {
+                if (!in_array($method, ['__construct'])) {
+                    $closure = function () use ($api, $method) {
+                        call_user_func([$api, $method]);
+                    };
+
+                    expect($closure)->toThrow(new \BadMethodCallException($method . ' is not yet implemented'));
+                }
+            }
         });
     });
     describe('->getOrders()', function () {
