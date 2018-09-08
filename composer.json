@@ -37,7 +37,7 @@
     "tests": "kahlan --config=.kahlan.php",
     "tests:integration": "kahlan --config=.kahlan.php --spec=./tests/Integration",
     "tests:coverage": "kahlan --config=.kahlan.php --coverage=4",
-    "tests:clover": "kahlan --config=.kahlan.php --no-header --reporter=bar --clover=coverage.xml",
+    "tests:clover": "kahlan --config=.kahlan.php --no-header --reporter=bar --clover=clover.xml",
     "cs:check": "phpcs --standard=.phpcs.xml",
     "cs:fix": "phpcbf -v --standard=.phpcs.xml",
     "md:check": "phpmd . text .phpmd.xml --exclude /vendor/,/tmp/,/logs/ --suffixes php --colors"
