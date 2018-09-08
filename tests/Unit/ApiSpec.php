@@ -3,10 +3,8 @@
 namespace Axm\DobaApi\Tests\Unit;
 
 use Axm\DobaApi\Api;
-use Axm\DobaApi\Client;
 use Axm\DobaApi\Factory;
 use Axm\DobaApi\Tests\TestHelper;
-use Kahlan\Plugin\Double;
 
 describe(Api::class, function () {
     describe('methods not implemented', function () {

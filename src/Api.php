@@ -22,57 +22,57 @@ class Api
         $this->client = $client;
     }
 
-    public function getOrders(array $options = [])
+    public function getOrders()
     {
         throw new \BadMethodCallException('getOrders is not yet implemented');
     }
 
-    public function getOrderDetail(array $options = [])
+    public function getOrderDetail()
     {
         throw new \BadMethodCallException('getOrderDetail is not yet implemented');
     }
 
-    public function orderLookup(array $options = []) : array
+    public function orderLookup() : array
     {
         throw new \BadMethodCallException('orderLookup is not yet implemented');
     }
 
-    public function createOrder(array $options = []) : array
+    public function createOrder() : array
     {
         throw new \BadMethodCallException('createOrder is not yet implemented');
     }
 
-    public function fundOrder(array $options = []) : array
+    public function fundOrder() : array
     {
         throw new \BadMethodCallException('fundOrder is not yet implemented');
     }
 
-    public function getSuppliers(array $options = [])
+    public function getSuppliers()
     {
         throw new \BadMethodCallException('getSuppliers is not yet implemented');
     }
 
-    public function searchCatalog(array $options = [])
+    public function searchCatalog()
     {
         throw new \BadMethodCallException('searchCatalog is not yet implemented');
     }
 
-    public function getProductDetail(array $options = [])
+    public function getProductDetail()
     {
         throw new \BadMethodCallException('getProductDetail is not yet implemented');
     }
 
-    public function getProductInventory(array $options = [])
+    public function getProductInventory()
     {
         throw new \BadMethodCallException('getProductInventory is not yet implemented');
     }
 
-    public function getListsSummary(array $options = [])
+    public function getListsSummary()
     {
         throw new \BadMethodCallException('getListsSummary is not yet implemented');
     }
 
-    public function editList(array $options = [])
+    public function editList()
     {
         throw new \BadMethodCallException('editList is not yet implemented');
     }
