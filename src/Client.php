@@ -93,6 +93,25 @@ class Client
 
     public function call(string $action, array $options = [])
     {
+        $objRequest = $this->buildRequest($options);
+        $response = $this->getResponse($action, $objRequest);
+        $array = json_decode(json_encode($response), true);
+
+        return $array;
+    }
+
+    protected function buildSoapClient() : SoapClient
+    {
+        return new SoapClient($this->getWsdlUrl(), $this->getSoapOptions());
+    }
+
+    protected function getResponse(string $action, stdClass $objRequest) : stdClass
+    {
+        return $this->getSoapClient()->{$action}($objRequest);
+    }
+
+    protected function buildRequest(array $options) : stdClass
+    {
         $objAuth = new stdClass();
         $objAuth->username = $this->getAuth()->getUsername();
         $objAuth->password = $this->getAuth()->getPassword();
@@ -105,13 +124,6 @@ class Client
             $objRequest->{$key} = $val;
         }
 
-        $response = call_user_func([$this->getSoapClient(), $action], $objRequest);
-
-        return json_decode(json_encode($response), true);
-    }
-
-    protected function buildSoapClient() : SoapClient
-    {
-        return new SoapClient($this->getWsdlUrl(), $this->getSoapOptions());
+        return $objRequest;
     }
 }

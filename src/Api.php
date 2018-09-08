@@ -11,20 +11,28 @@ class Api
     /**
      * @var Client
      */
-    protected $client;
+    protected $order_client;
+
+    /**
+     * @var Client
+     */
+    protected $product_client;
 
     /**
      * Api constructor.
-     * @param Client $client
+     * @param Client $order_client
+     * @param Client $product_client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $order_client, Client $product_client)
     {
-        $this->client = $client;
+        $this->order_client = $order_client;
+        $this->product_client = $product_client;
     }
 
-    public function getOrders()
+
+    public function getOrders(array $options = [])
     {
-        throw new \BadMethodCallException('getOrders is not yet implemented');
+        return $this->order_client->call('getOrders', $options);
     }
 
     public function getOrderDetail()
