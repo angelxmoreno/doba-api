@@ -21,7 +21,6 @@ class Factory
     public const PRODUCT_WSDL_URL = 'https://www.doba.com/soap/20110301/wsdl/ApiRetailerSearch.wsdl';
     public const ORDER_WSDL_URL = 'https://www.doba.com/soap/20110301/wsdl/ApiRetailerOrder.wsdl';
 
-
     public static function buildApi(string $username, string $password, string $retailer_id) : Api
     {
         $client = static::buildClient($username, $password, $retailer_id);

@@ -11,7 +11,7 @@ use Kahlan\Plugin\Double;
 describe(Api::class, function () {
     describe('methods not implemented', function () {
         it('they throw a', function () {
-            $api = new Api(Factory::buildClient('','',''));
+            $api = new Api(Factory::buildClient('', '', ''));
             $methods = TestHelper::getMethodsArray(Api::class, \ReflectionMethod::IS_PUBLIC);
 
             foreach ($methods as $method) {

@@ -13,7 +13,6 @@ describe(Client::class, function () {
         $this->auth = new Auth('some_username', 'some_password', 'some_retail_id');
         $this->client = new Client($this->auth);
         $this->client->setWsdlUrl(Factory::PRODUCT_WSDL_URL_DEV);
-
     });
 
     describe('->getSoapClient()', function () {
@@ -63,7 +62,7 @@ describe(Client::class, function () {
                 'args' => [$client->getWsdlUrl(), $client->getSoapOptions()]
             ]);
             allow($client)->toReceive('buildSoapClient')->andReturn($soap_client);
-            allow($soap_client)->toReceive('getSuppliers')->andReturn(['supplier1','supplier2','supplier3']);
+            allow($soap_client)->toReceive('getSuppliers')->andReturn(['supplier1', 'supplier2', 'supplier3']);
             $response = $client->call($action, $options);
 
             expect($response)->toHaveLength(count($options['supplier_ids']));
