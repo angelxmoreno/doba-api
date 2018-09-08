@@ -70,8 +70,8 @@ class Factory
             case self::PRODUCT . ':false':
                 $wsdl_url = self::PRODUCT_WSDL_URL;
                 break;
-            default:
             case self::PRODUCT . ':true':
+            default:
                 $wsdl_url = self::PRODUCT_WSDL_URL_DEV;
                 break;
         }
