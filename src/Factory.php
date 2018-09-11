@@ -21,10 +21,21 @@ class Factory
     public const PRODUCT_WSDL_URL = 'https://www.doba.com/soap/20110301/wsdl/ApiRetailerSearch.wsdl';
     public const ORDER_WSDL_URL = 'https://www.doba.com/soap/20110301/wsdl/ApiRetailerOrder.wsdl';
 
-    public static function buildApi(string $username, string $password, string $retailer_id) : Api
-    {
-        $client = static::buildClient($username, $password, $retailer_id);
-        $api = new Api($client);
+    public static function buildApi(
+        string $username,
+        string $password,
+        string $retailer_id,
+        bool $dev_mode = true
+    ) : Api {
+        $auth = new Auth($username, $password, $retailer_id);
+
+        $order_client = new Client($auth);
+        $order_client->setWsdlUrl(self::getWsdlUrl(self::ORDER, $dev_mode));
+
+        $product_client = new Client($auth);
+        $product_client->setWsdlUrl(self::getWsdlUrl(self::PRODUCT, $dev_mode));
+
+        $api = new Api($order_client, $product_client);
 
         return $api;
     }
@@ -58,7 +69,7 @@ class Factory
         }
     }
 
-    protected static function getWsdlUrl(string $type, bool $dev_mode) : string
+    public static function getWsdlUrl(string $type, bool $dev_mode) : string
     {
         switch ($type . ':' . (string)$dev_mode) {
             case self::ORDER . ':true':

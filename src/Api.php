@@ -8,72 +8,55 @@ namespace Axm\DobaApi;
  */
 class Api
 {
+    public const PRODUCT_METHODS = [
+        'getSuppliers',
+        'searchCatalog',
+        'getProductDetail',
+        'getProductInventory',
+        'getListsSummary',
+        'editList'
+    ];
+
+    public const ORDER_METHODS = [
+        'orderLookup',
+        'createOrder',
+        'fundOrder',
+        'getOrderDetail',
+        'getOrders'
+    ];
+
     /**
      * @var Client
      */
-    protected $client;
+    protected $order_client;
+
+    /**
+     * @var Client
+     */
+    protected $product_client;
 
     /**
      * Api constructor.
-     * @param Client $client
+     * @param Client $order_client
+     * @param Client $product_client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $order_client, Client $product_client)
     {
-        $this->client = $client;
+        $this->order_client = $order_client;
+        $this->product_client = $product_client;
     }
 
-    public function getOrders()
+    public function __call($method, $arguments)
     {
-        throw new \BadMethodCallException('getOrders is not yet implemented');
-    }
+        if (!in_array($method, self::ORDER_METHODS) && !in_array($method, self::PRODUCT_METHODS)) {
+            throw new \BadMethodCallException("Method {$method} does not exist");
+        }
 
-    public function getOrderDetail()
-    {
-        throw new \BadMethodCallException('getOrderDetail is not yet implemented');
-    }
+        $client = in_array($method, self::ORDER_METHODS)
+            ? $this->order_client
+            : $this->product_client;
+        array_unshift($arguments, $method);
 
-    public function orderLookup() : array
-    {
-        throw new \BadMethodCallException('orderLookup is not yet implemented');
-    }
-
-    public function createOrder() : array
-    {
-        throw new \BadMethodCallException('createOrder is not yet implemented');
-    }
-
-    public function fundOrder() : array
-    {
-        throw new \BadMethodCallException('fundOrder is not yet implemented');
-    }
-
-    public function getSuppliers()
-    {
-        throw new \BadMethodCallException('getSuppliers is not yet implemented');
-    }
-
-    public function searchCatalog()
-    {
-        throw new \BadMethodCallException('searchCatalog is not yet implemented');
-    }
-
-    public function getProductDetail()
-    {
-        throw new \BadMethodCallException('getProductDetail is not yet implemented');
-    }
-
-    public function getProductInventory()
-    {
-        throw new \BadMethodCallException('getProductInventory is not yet implemented');
-    }
-
-    public function getListsSummary()
-    {
-        throw new \BadMethodCallException('getListsSummary is not yet implemented');
-    }
-
-    public function editList()
-    {
-        throw new \BadMethodCallException('editList is not yet implemented');
+        return call_user_func_array([$client, 'call'], $arguments);
     }
 }

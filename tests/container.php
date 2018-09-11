@@ -1,24 +1,20 @@
 <?php
 
-use Axm\DobaApi\Api;
-use Axm\DobaApi\Auth;
 use DI\ContainerBuilder;
-use Axm\DobaApi\Client;
-use function DI\create;
 use function DI\get;
 
 $builder = new ContainerBuilder();
 $builder->addDefinitions([
     'test_user' => 'mikeb',
     'test_password' => 'password',
-    'test_retail_id' => '1765191',
-    Auth::class => create()->constructor(
-        get('test_user'),
-        get('test_password'),
-        get('test_retail_id')
-    ),
-    Client::class => create()->constructor(get(Auth::class)),
-    Api::class => create()->constructor(get(Client::class))
+    'test_retailer_id' => '1765191',
+    'api' => function () {
+        return \Axm\DobaApi\Factory::buildApi(
+            get('test_user'),
+            get('test_password'),
+            get('test_retailer_id')
+        );
+    }
 ]);
 
 try {
