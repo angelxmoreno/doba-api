@@ -105,9 +105,11 @@ class Client
         return new SoapClient($this->getWsdlUrl(), $this->getSoapOptions());
     }
 
-    protected function getResponse(string $action, stdClass $objRequest) : stdClass
+    protected function getResponse(string $action, stdClass $objRequest) : array
     {
-        return $this->getSoapClient()->{$action}($objRequest);
+        $response = $this->getSoapClient()->{$action}($objRequest);
+
+        return $response;
     }
 
     protected function buildRequest(array $options) : stdClass

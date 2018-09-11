@@ -6,7 +6,6 @@ use Axm\DobaApi\Api;
 use Axm\DobaApi\Auth;
 use Axm\DobaApi\Client;
 use Axm\DobaApi\Factory;
-use Axm\DobaApi\Tests\TestHelper;
 use Kahlan\Plugin\Double;
 
 describe(Api::class, function () {
@@ -31,11 +30,7 @@ describe(Api::class, function () {
         $client->setWsdlUrl(Factory::getWsdlUrl(Factory::ORDER, true));
         allow($client)->toReceive('buildSoapClient')->andReturn($this->soapClient);
         allow($client)->toReceive('getResponse')->andRun(function (string $action, $objRequest) {
-            $response = new \stdClass();
-            $response->action = $action;
-            $response->objRequest = $objRequest;
-
-            return $response;
+            return compact('action', 'objRequest');
         });
 
         return $client;
@@ -48,11 +43,7 @@ describe(Api::class, function () {
         $client->setWsdlUrl(Factory::getWsdlUrl(Factory::PRODUCT, true));
         allow($client)->toReceive('buildSoapClient')->andReturn($this->soapClient);
         allow($client)->toReceive('getResponse')->andRun(function (string $action, $objRequest) {
-            $response = new \stdClass();
-            $response->action = $action;
-            $response->objRequest = $objRequest;
-
-            return $response;
+            return compact('action', 'objRequest');
         });
 
         return $client;
@@ -83,72 +74,25 @@ describe(Api::class, function () {
             }
         };
     });
-    describe('methods not implemented', function () {
-        it('will throw a BadMethodCallException', function () {
-            $methods = TestHelper::getMethodsArray(Api::class, \ReflectionMethod::IS_PUBLIC);
 
-            foreach ($methods as $method) {
-                if (!in_array($method, ['__construct', 'getOrders'])) {
-                    $api = $this->api;
-                    $closure = function () use ($api, $method) {
-                        call_user_func([$api, $method]);
-                    };
+    $clients = [
+        'ordersClient' => Api::ORDER_METHODS,
+        'productsClient' => Api::PRODUCT_METHODS,
+    ];
+    foreach ($clients as $client_name => $methods) {
+        foreach ($methods as $method) {
+            describe("->{$method}()", function () use ($client_name, $method) {
+                it("calls {$client_name}->{$method}", function () use ($client_name, $method) {
+                    $options = ['limit' => random_int(1, 500)];
 
-                    expect($closure)->toThrow(new \BadMethodCallException($method . ' is not yet implemented'));
-                }
-            }
-        });
-    });
-    describe('->getOrders()', function () {
-        fit('gets Orders', function () {
-            $options = ['limit' => 3];
+                    expect($this->{$client_name})
+                        ->toReceive('call');
 
-            expect($this->ordersClient)
-                ->toReceive('call');
+                    $response = $this->api->{$method}($options);
 
-            $response = $this->api->getOrders($options);
-
-            $this->expectValidResponse($response, 'getOrders', $options);
-        });
-    });
-    describe('->getOrderDetail()', function () {
-        xit('getOrderDetail', function () {
-        });
-    });
-    describe('->orderLookup()', function () {
-        xit('orderLookup', function () {
-        });
-    });
-    describe('->createOrder()', function () {
-        xit('createOrder', function () {
-        });
-    });
-    describe('->fundOrder()', function () {
-        xit('fundOrder', function () {
-        });
-    });
-    describe('->getSuppliers()', function () {
-        xit('getSuppliers', function () {
-        });
-    });
-    describe('->searchCatalog()', function () {
-        xit('searchCatalog', function () {
-        });
-    });
-    describe('->getProductDetail()', function () {
-        xit('getProductDetail', function () {
-        });
-    });
-    describe('->getProductInventory()', function () {
-        xit('getProductInventory', function () {
-        });
-    });
-    describe('->getListsSummary()', function () {
-        xit('getListsSummary', function () {
-        });
-    });
-    describe('->editList()', function () {
-        xit('editList', function () {
-        });
-    });
+                    $this->expectValidResponse($response, $method, $options);
+                });
+            });
+        }
+    }
 });

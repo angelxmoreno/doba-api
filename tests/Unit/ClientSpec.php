@@ -8,7 +8,7 @@ use Axm\DobaApi\Factory;
 use Axm\DobaApi\Tests\TestHelper;
 use Kahlan\Plugin\Double;
 
-describe(Client::class, function () {
+xdescribe(Client::class, function () {
     beforeAll(function () {
         $this->auth = new Auth('some_username', 'some_password', 'some_retail_id');
         $this->client = new Client($this->auth);
