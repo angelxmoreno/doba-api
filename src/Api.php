@@ -5,6 +5,18 @@ namespace Axm\DobaApi;
 /**
  * Class Api
  * @package Axm\DobaApi
+ *
+ * @method array getSuppliers(array $options = [])
+ * @method array searchCatalog(array $options = [])
+ * @method array getProductDetail(array $options = [])
+ * @method array getProductInventory(array $options = [])
+ * @method array getListsSummary(array $options = [])
+ * @method array editList(array $options = [])
+ * @method array orderLookup(array $options = [])
+ * @method array createOrder(array $options = [])
+ * @method array fundOrder(array $options = [])
+ * @method array getOrderDetail(array $options = [])
+ * @method array getOrders(array $options = [])
  */
 class Api
 {
