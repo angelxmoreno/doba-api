@@ -72,16 +72,16 @@ class Factory
     protected static function getWsdlUrl(string $type, bool $dev_mode) : string
     {
         switch ($type . ':' . (string)$dev_mode) {
-            case self::ORDER . ':true':
+            case self::ORDER . ':1':
                 $wsdl_url = self::ORDER_WSDL_URL_DEV;
                 break;
-            case self::ORDER . ':false':
+            case self::ORDER . ':0':
                 $wsdl_url = self::ORDER_WSDL_URL;
                 break;
-            case self::PRODUCT . ':false':
+            case self::PRODUCT . ':0':
                 $wsdl_url = self::PRODUCT_WSDL_URL;
                 break;
-            case self::PRODUCT . ':true':
+            case self::PRODUCT . ':1':
             default:
                 $wsdl_url = self::PRODUCT_WSDL_URL_DEV;
                 break;
