@@ -1,5 +1,3 @@
-# Under active development. Stay tuned
-
 # Doba API
 
 A PHP library for interacting with the Doba API
@@ -14,17 +12,20 @@ A PHP library for interacting with the Doba API
 ## Features
 
 - Make calls to the Doba API
-- PSR6 cache for faster responses
-- Objects as responses
-- Uses Guzzle
-    - to reduce complexity
-    - to increase compatibility when cURL is not available
+- PSR-16 cache for faster responses
+- Uses SoapClient for better type conversion of data
 
 ## Examples
 
 ```php
-$ordersApi->getOrders();
-$ordersApi->getOrders([
+$username = 'doba_api_username';
+$password = 'doba_api_password';
+$retailer_id = 'retailer_id';
+
+$api = \Axm\DobaApi\Factory::buildApi($username, $password, $retailer_id);
+$suppliers = $api->getSuppliers(['supplier_ids' => [123,456]]);
+
+$orders = $api->getOrders([
     'limit' => 4
 ]);
 ```
@@ -32,6 +33,7 @@ $ordersApi->getOrders([
 ## Requirements
 
 - PHP >=7.1
+- SoapClient enabled in PHP
 
 ## Installation
 
