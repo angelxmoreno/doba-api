@@ -46,7 +46,8 @@
     "php": "^7.2",
     "ext-json": "^1.2",
     "ext-soap": "^7.2",
-    "cakephp/utility": "^3.6"
+    "cakephp/utility": "^3.6",
+    "psr/simple-cache": "^1.0"
   },
   "require-dev": {
     "cakephp/cakephp-codesniffer": "^3.0",

@@ -7,6 +7,7 @@ use Axm\DobaApi\Auth;
 use Axm\DobaApi\Client;
 use Axm\DobaApi\Factory;
 use Kahlan\Plugin\Double;
+use Psr\SimpleCache\CacheInterface;
 
 describe(Api::class, function () {
     given('soapClient', function () {
@@ -95,4 +96,67 @@ describe(Api::class, function () {
             });
         }
     }
+
+    describe('Cache Handling', function () {
+        context('When Cache is not set', function () {
+            it('does not get a cached response', function () {
+                $api = new Api($this->ordersClient, $this->productsClient);
+                $options = ['limit' => 3];
+
+                expect($api)
+                    ->toReceive('callRaw');
+
+                expect($api)
+                    ->not
+                    ->toReceive('callCached');
+
+                $api->getSuppliers($options);
+            });
+        });
+
+        context('When Cache is set and no cached value exists', function () {
+            it('does not get a cached response', function () {
+                /** @var CacheInterface $cache_engine */
+                $cache_engine = Double::instance(['implements' => CacheInterface::class]);
+                $api = new Api($this->ordersClient, $this->productsClient);
+                $api->setCache($cache_engine);
+                $options = ['time' => microtime()];
+
+                expect($api)
+                    ->toReceive('callCached');
+
+                expect($api)
+                    ->toReceive('callRaw');
+
+                $api->getSuppliers($options);
+            });
+        });
+
+        context('When Cache is set and a cached value exists', function () {
+            it('returns a cached response', function () {
+                /** @var CacheInterface $cache_engine */
+                $cache_engine = Double::instance(['implements' => CacheInterface::class]);
+                $api = new Api($this->ordersClient, $this->productsClient);
+                $api->setCache($cache_engine);
+                $options = ['time' => microtime()];
+
+                allow($cache_engine)
+                    ->toReceive('has')
+                    ->andReturn('true');
+
+                allow($cache_engine)
+                    ->toReceive('get')
+                    ->andReturn([]);
+
+                expect($api)
+                    ->toReceive('callCached');
+
+                expect($api)
+                    ->not
+                    ->toReceive('callRaw');
+
+                $api->getSuppliers($options);
+            });
+        });
+    });
 });
