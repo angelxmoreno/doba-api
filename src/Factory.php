@@ -69,7 +69,7 @@ class Factory
         }
     }
 
-    protected static function getWsdlUrl(string $type, bool $dev_mode) : string
+    public static function getWsdlUrl(string $type, bool $dev_mode) : string
     {
         switch ($type . ':' . (string)$dev_mode) {
             case self::ORDER . ':1':
